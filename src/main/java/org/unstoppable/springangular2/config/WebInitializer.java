@@ -12,7 +12,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
                 ApplicationContext.class,
-                HibernateConfig.class,
                 SecurityConfig.class
         };
     }
@@ -27,11 +26,5 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
-    }
-
-    @Override
-    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setInitParameter("dispatchOptionsRequest", "true");
-        registration.setAsyncSupported(true);
     }
 }

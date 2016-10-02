@@ -27,14 +27,17 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.unstoppable.projectstack.controller"})
+@ComponentScan(basePackages = {"org.unstoppable.springangular2.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     private static final String STANDARD_CHARSET = "UTF-8";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/");
         registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/");
+        registry.addResourceHandler("/app/**").addResourceLocations("/WEB-INF/app/");
+        registry.addResourceHandler("/node_modules/**").addResourceLocations("/WEB-INF/node_modules/");
     }
 
     @Bean
@@ -64,27 +67,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // templates to be automatically updated when modified.
         templateResolver.setCacheable(false);
         return templateResolver;
-    }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("en"));
-        return localeResolver;
-    }
-
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang");
-        return localeChangeInterceptor;
-    }
-
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:message");
-        messageSource.setDefaultEncoding(STANDARD_CHARSET);
-        return messageSource;
     }
 }

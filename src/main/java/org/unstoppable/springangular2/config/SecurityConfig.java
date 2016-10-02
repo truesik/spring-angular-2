@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .dataSource(dataSource)
 //                .usersByUsernameQuery("SELECT username, password, true FROM users WHERE username=?")
 //                .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username=?");
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("ROLE_ADMIN");
+        auth.inMemoryAuthentication().withUser("user").password("password").roles("ADMIN");
     }
 
     @Override
@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(encodingFilter, CsrfFilter.class);
         // PERMISSIONS
         http.authorizeRequests()
-                .anyRequest().permitAll()
-                .and().formLogin().loginPage("/login").failureUrl("/login=error").defaultSuccessUrl("/").permitAll()
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
-                .and().csrf().ignoringAntMatchers("/websocket/**");
+                .anyRequest().permitAll();
+//                .and().formLogin().loginPage("/login").failureUrl("/login=error").defaultSuccessUrl("/").permitAll()
+//                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
+//                .and().csrf().ignoringAntMatchers("/websocket/**");
 //                .and().headers().frameOptions().sameOrigin();
     }
 }
